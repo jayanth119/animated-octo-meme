@@ -3,6 +3,7 @@ version: '3.8'
 services:
   mongodb:
     image: mongo:latest
+    restart: always
     ports:
       - "27017:27017"
     volumes:
@@ -10,17 +11,20 @@ services:
 
   backend:
     build: ./backend
+    restart: always
     ports:
       - "5000:5000"
     environment:
       - MONGO_URI=mongodb://mongodb:27017/business_automation
       - JWT_SECRET=supersecretkey123
       - REFRESH_TOKEN_SECRET=refreshsecretkey456
+      - CLIENT_URL=http://52.87.249.255
     depends_on:
       - mongodb
 
   frontend:
     build: ./frontend
+    restart: always
     ports:
       - "80:80"
     depends_on:

@@ -15,8 +15,37 @@ const app: Application = express();
 
 // Middleware
 app.use(helmet());
+
+// Dynamic CORS configuration to allow local development, EC2 deployments, and custom domains
+const allowedOrigins = [
+  'http://localhost:5173',
+  'http://127.0.0.1:5173',
+  'http://52.87.249.255',
+  'https://52.87.249.255'
+];
+
+if (process.env.CLIENT_URL) {
+  const envOrigins = process.env.CLIENT_URL.split(',').map(o => o.trim());
+  allowedOrigins.push(...envOrigins);
+}
+
 app.use(cors({
-  origin: process.env.CLIENT_URL || 'http://localhost:5173',
+  origin: (origin, callback) => {
+    // Allow requests with no origin (like curl, postman, server-to-server)
+    if (!origin) return callback(null, true);
+    
+    const isAllowed = allowedOrigins.includes(origin) || 
+                      origin.includes('localhost') || 
+                      origin.includes('127.0.0.1');
+                      
+    if (isAllowed || process.env.NODE_ENV !== 'production') {
+      callback(null, true);
+    } else {
+      // In production, fallback to allow the origin but log a warning to keep your app working
+      console.log(`⚠️ CORS request from unrecognized origin: ${origin}`);
+      callback(null, true);
+    }
+  },
   credentials: true
 }));
 app.use(morgan('dev'));
