@@ -8,7 +8,8 @@ export const useSocket = () => {
 
   useEffect(() => {
     if (user && accessToken) {
-      socketRef.current = io('/', {
+      const SOCKET_URL = (import.meta as any).env?.VITE_API_URL || '/';
+      socketRef.current = io(SOCKET_URL, {
         auth: {
           token: accessToken
         }
