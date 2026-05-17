@@ -322,6 +322,53 @@ const Login = () => {
               Create an account
             </Link>
           </p>
+
+          {/* Mobile Quick Demo Logins */}
+          <div className="mobile-demo-logins" style={{ display: 'none', flexDirection: 'column', gap: '12px', marginTop: '32px' }}>
+            <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
+              <div style={{ height: '1px', backgroundColor: 'rgba(0,0,0,0.08)', flex: 1 }} />
+              <span style={{ fontSize: '10px', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.08em', color: 'var(--text-muted)' }}>Quick Demo Logins</span>
+              <div style={{ height: '1px', backgroundColor: 'rgba(0,0,0,0.08)', flex: 1 }} />
+            </div>
+            
+            <div style={{ display: 'flex', gap: '8px', overflowX: 'auto', paddingBottom: '8px', scrollbarWidth: 'none' }} className="no-scrollbar">
+              {[
+                { name: 'Alex', role: 'Admin', email: 'alex.admin@autobiz.com', avatar: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Alex' },
+                { name: 'Sarah', role: 'Manager', email: 'sarah.manager@autobiz.com', avatar: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Sarah' },
+                { name: 'Michael', role: 'Dev', email: 'michael.developer@autobiz.com', avatar: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Michael' },
+                { name: 'Emma', role: 'Design', email: 'emma.designer@autobiz.com', avatar: 'https://api.dicebear.com/7.x/adventurer/svg?seed=Emma' },
+                { name: 'John', role: 'Client', email: 'client.john@autobiz.com', avatar: 'https://api.dicebear.com/7.x/adventurer/svg?seed=John' }
+              ].map((demo, idx) => (
+                <button
+                  key={idx}
+                  type="button"
+                  onClick={() => {
+                    setEmail(demo.email);
+                    setPassword('password123');
+                    setTimeout(() => {
+                      const form = document.querySelector('form');
+                      form?.dispatchEvent(new Event('submit', { cancelable: true, bubbles: true }));
+                    }, 50);
+                  }}
+                  style={{
+                    display: 'flex',
+                    alignItems: 'center',
+                    gap: '8px',
+                    padding: '8px 12px',
+                    borderRadius: '50px',
+                    backgroundColor: 'var(--bg-soft)',
+                    border: '1px solid var(--border-color)',
+                    cursor: 'pointer',
+                    whiteSpace: 'nowrap',
+                    flexShrink: 0
+                  }}
+                >
+                  <img src={demo.avatar} alt="" style={{ width: '18px', height: '18px', borderRadius: '50%' }} />
+                  <span style={{ fontSize: '12px', fontWeight: 600, color: 'var(--text-main)' }}>{demo.name} ({demo.role})</span>
+                </button>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </div>

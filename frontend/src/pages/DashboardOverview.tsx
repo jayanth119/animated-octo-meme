@@ -184,9 +184,8 @@ const DashboardOverview = () => {
       }}>
         {/* Main Revenue Chart */}
         <div 
-          className="premium-card chart-card"
+          className="premium-card chart-card grid-span-2"
           style={{
-            gridColumn: 'span 2',
             padding: '24px',
             display: 'flex',
             flexDirection: 'column',

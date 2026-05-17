@@ -325,3 +325,57 @@ html.lenis, html.lenis body {
   display: inline-block;
   vertical-align: bottom;
 }
+
+/* Responsive Login & Register panel layouts */
+@media (max-width: 1024px) {
+  .login-page-container,
+  .register-page-container {
+    flex-direction: column !important;
+    overflow-y: auto !important;
+  }
+  
+  .login-page-container .visual-panel,
+  .register-page-container .visual-panel {
+    display: none !important;
+  }
+  
+  .login-page-container .form-panel,
+  .register-page-container .form-panel {
+    flex: 1 !important;
+    width: 100% !important;
+    padding: 60px 24px !important;
+    border-left: none !important;
+  }
+
+  .mobile-demo-logins {
+    display: flex !important;
+  }
+}
+
+/* Responsive Grid Helper Class */
+.grid-span-2 {
+  grid-column: span 2;
+}
+
+@media (max-width: 768px) {
+  .grid-span-2 {
+    grid-column: span 1 !important;
+  }
+}
+
+/* Responsive Content Area padding overrides */
+@media (max-width: 768px) {
+  .main-content-flow {
+    padding: 24px 16px !important;
+  }
+}
+
+/* Hide scrollbar helper */
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+

@@ -324,15 +324,14 @@ const Settings = () => {
 
         {/* Card 4: Developer Credentials & API Token */}
         <div 
-          className="premium-card settings-fade"
+          className="premium-card settings-fade grid-span-2"
           style={{
             padding: '28px',
             backgroundColor: '#ffffff',
             border: '1px solid var(--border-color)',
             display: 'flex',
             flexDirection: 'column',
-            gap: '24px',
-            gridColumn: 'span 2'
+            gap: '24px'
           }}
         >
           <div style={{ display: 'flex', alignItems: 'center', gap: '10px' }}>
