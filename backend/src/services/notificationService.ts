@@ -1,4 +1,4 @@
-import { io } from '../server.js';
+
 import Notification, { NotificationType } from '../models/Notification.js';
 import User from '../models/User.js';
 import nodemailer from 'nodemailer';
@@ -44,8 +44,15 @@ export const sendNotification = async (userId: string, message: string, type: No
     });
 
     // 2. Emit real-time Socket.io packet to the recipient's personal room
-    io.to(userId.toString()).emit('notification', notification);
-    console.log(`🔌 Socket broadcast dispatched to user room ${userId}`);
+    try {
+      const { io } = await import('../server.js');
+      if (io) {
+        io.to(userId.toString()).emit('notification', notification);
+        console.log(`🔌 Socket broadcast dispatched to user room ${userId}`);
+      }
+    } catch (err) {
+      console.error('⚠️ Failed to dispatch socket event:', err);
+    }
 
     // 3. Fetch recipient's email address to trigger the email notification
     const recipientUser = await User.findById(userId);
